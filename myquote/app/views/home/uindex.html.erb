@@ -1,0 +1,14 @@
+<!-- Standard users main home page -->
+
+<!-- Display messages -->
+<% if flash[:error] %>
+    <p class="error" style="color:red;"><%= flash[:error] %></p>
+<% end %>
+
+<p style="color: green"><%= notice %></p>
+<h1>Hello <%= session[:fname] %></h1>
+<br />
+<h3>Standard User Landing Page</h3>
+
+<!-- This will take the logged-in user to the above form to edit the details they are allowed to edit -->
+<%= link_to "Edit your account details", edit_user_path(session[:user_id]) %>

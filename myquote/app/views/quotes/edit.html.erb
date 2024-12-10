@@ -1,0 +1,13 @@
+<h1>Edit Quote</h1>
+<br />
+
+<%= render "form", quote: @quote %>
+
+<br>
+
+<div>
+  <!-- Creates a link to show the quote when pressed -->
+  <%= link_to "Show this quote", @quote %> |
+  <!-- Creates a link to go back to whatever it's previous path -->
+  <%= link_to "Back", :back %>
+</div>

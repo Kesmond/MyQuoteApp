@@ -1,0 +1,99 @@
+<%= form_with(model: @quote, local: true) do |f| %>
+  <!-- This will display errors related to both the Quote and its nested QuoteCategories -->
+  <% if @quote.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @quote.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <!-- Hidden field for user_id -->
+  <%= f.hidden_field :user_id, value: current_user.id %>
+
+  <!-- Form fields associated with the quotes table -->
+  <!-- Quote Text -->
+  <div class="form-group" style="padding-bottom: 10px;">
+    <%= f.text_field :text, placeholder: 'Quote Text*', class: 'form-control' %>
+  </div>
+
+  <!-- Quote Year Published -->
+  <div class="form-group" style="padding-bottom: 10px;">
+    <%= f.text_field :year_publication, placeholder: 'Quote Year Published', class: 'form-control' %>
+  </div>
+
+  <!-- Quote Comment -->
+  <div class="form-group" style="padding-bottom: 10px;">
+    <%= f.text_area :comment, placeholder: 'Quote Comment', class: 'form-control' %>
+  </div>
+
+  <!-- Quote is_public -->
+  <div class="form-check" style="padding-bottom: 10px;">
+    <%= f.label :is_public do %>
+    Public
+    <%= f.check_box :is_public, class: "form-check-input" %>
+    <% end %>
+  </div>
+
+  <!-- Quote Author -->
+  <div id="author-container" class="form-group" style="padding-bottom: 10px;">
+      <%= f.label :author_id, "Author*", class: "form-label" %>
+      <!-- Generates a selection of Author's in the database -->
+      <%= f.select :author_id, [['Select an author', '']] + Author.order(:fname).collect {|a| ["#{a.fname} #{a.lname}", a.id] }, {inlude_blank: "Select an author"}, class: "form-control", style: "width: 300px;" %>
+      <!-- Button to generate a new author which redirects to create new author -->
+      <%= link_to "Add New Author", new_author_path %>
+  </div>
+
+  <br/>
+  <!-- Quote Category -->
+  <div id="categories-container" >
+    <% @quote.quote_categories.each do |quote_category| %>
+      <%= f.fields_for :quote_categories, quote_category do |ri| %>
+        <div class="category-field row mb-2">
+          <div class="col-auto">
+            <!-- Create the dropdown list for selecting a category -->
+            <%= ri.label :category_id, "Category*", class: "form-label d-inline-block me-2" %>
+            <%= ri.select :category_id, [['Select a category', '']] + Category.all.collect { |ctg| [ctg.category_name, ctg.id] }, { include_blank: true }, class: "form-control d-inline-block" %>
+          </div>
+          <div class="col-auto align-self-end">
+            <!-- Creates links to delete the category row when clicked -->
+            <%= link_to '[-] Remove this Category', '#', class:'remove-category', style: "color: red; text-decoration: none;" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Submit form button -->
+  <div class="mt-3">
+    <% if @quote.new_record? %>
+      <%= f.submit 'Create', class: 'btn btn-primary btn-lg' %>
+    <% else %>
+      <%= f.submit 'Update', class: 'btn btn-primary btn-lg' %>
+    <% end %>
+  </div>
+<% end %>
+
+<!-- Javascript code on the remove categoru function -->
+<script>
+//Waits for document to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+  //Detect clicks on any "Remove this category" links clicked by the user
+  document.addEventListener('click', function(e) {
+    //If an object with style class remove-category is clicked
+    if (e.target && e.target.classList.contains('remove-category')) {
+      //Prevent the link from behaving as links normally do, and instead
+      e.preventDefault();
+
+      //Make sure if the remove action executes, it won't leave us with no category
+      const categoryFields = document.querySelectorAll('.category-field');
+      //If at least one category will still reamin, then delete the one with which the link is associated
+      if (categoryFields.length > 1) {
+        e.target.closest('.category-field').remove();
+      }
+    }
+  });
+});
+</script>

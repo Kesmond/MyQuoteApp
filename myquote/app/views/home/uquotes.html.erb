@@ -1,0 +1,15 @@
+<!-- /your-quotes -->
+
+<h3>Your Quotes</h3>
+<hr />
+<!-- Generate every quote created by the user -->
+<% @quotes.each do |quote| %>
+    <div class="card bg-body-tertiary" style="margin-bottom:10px">
+    <div class="card-body">
+        <!-- Display quote text -->
+        <h4 class="card-title"><%= quote.text %></h4>
+        <!-- Display author first and last name, as well as the hyperlink to read full the quote --> 
+        <p class="card-text"><%= "- #{quote.author.fname} #{quote.author.lname}" %><br />[<a href="/quotes/<%=quote.id %>">Read full quote</a>]</p>
+    </div>
+    </div>
+<% end %>

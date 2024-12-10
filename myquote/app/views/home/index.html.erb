@@ -1,0 +1,15 @@
+<!-- Main home index -->
+
+<h1>Welcome to MyQuote</h1>
+<p>Find your favourite quotes here!</p>
+
+<h3>Recently Added Quotes</h3>
+<hr />
+<% @quotes.each do |quote| %>
+    <div class="card bg-body-tertiary" style="margin-bottom:10px">
+    <div class="card-body">
+        <h4 class="card-title">"<%= quote.text %>"</h4>
+        <p class="card-text"><%= "- #{quote.author.fname} #{quote.author.lname}" %><br />[<a href="/quotes/<%=quote.id %>">Read full quote</a>]</p>
+    </div>
+    </div>
+<% end %>

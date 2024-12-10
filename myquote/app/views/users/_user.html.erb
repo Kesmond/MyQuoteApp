@@ -1,0 +1,48 @@
+<!-- Showing user details -->
+<div id="<%= dom_id user %>" class="my-4">
+  
+  <!-- User First Name -->
+  <div class="mb-3">
+    <label class="form-label"><strong>First name:</strong></label>
+    <div><%= user.fname %></div>
+  </div>
+
+  <!-- User Last Name -->
+  <div class="mb-3">
+    <label class="form-label"><strong>Last name:</strong></label>
+    <div><%= user.lname %></div>
+  </div>
+
+  <!-- User Email -->
+  <div class="mb-3">
+    <label class="form-label"><strong>Email:</strong></label>
+    <div><%= user.email %></div>
+  </div>
+
+  <!-- User Current Password -->
+  <div class="mb-3">
+  <!-- Ensure the encrypted password isn't rendered to the screen or to the view's HTML -->
+    <label class="form-label"><strong>Current Password:</strong></label>
+    <span class="text-danger">ENCRYPTED</span>
+  </div>
+
+  <!-- Standard User or Administrator -->
+  <div class="mb-3">
+    <label class="form-label"><strong>Account Type:</strong></label>
+    <div>
+      <!-- Set the role according to is_admin setting for user -->
+      <% if user.is_admin %>
+        <span>Administrator</span>
+      <% else %>
+        <span>Standard User</span>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- User Status -->
+  <div class="mb-3">
+    <label class="form-label"><strong>Status:</strong></label>
+    <div><%= user.status %></div>
+  </div>
+
+</div>

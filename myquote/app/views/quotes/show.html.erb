@@ -1,0 +1,25 @@
+<!-- Quotes being shown -->
+
+<p style="color: green"><%= notice %></p>
+<p class="error" style="color:red;"><%= flash[:error] %></p>
+
+<%= render @quote %>
+
+<!-- If user is logged in and published this quote -->
+<% if logged_in? && current_user == @quote.user %>
+  <div>
+    <!-- Create links to edit quote and access my quote's' -->
+    <%= link_to "Edit this quote", edit_quote_path(@quote) %> |
+    <%= link_to "My Quotes", your_quotes_path %>
+    <br/><br/>
+    <!-- Create link to destroy quote. Intentionally placed it to prevent user from accidentally clicking it -->
+    <%= button_to "Destroy this quote", @quote, method: :delete %>
+  </div>
+<!-- Else -->
+<% else %>
+  <div>
+    <!-- Creates links to edit quote but it wont work and back to home page link -->
+    <%= link_to "Edit this quote", edit_quote_path(@quote) %> |
+    <%= link_to "Back Home", root_path %>
+  </div>
+<% end %>

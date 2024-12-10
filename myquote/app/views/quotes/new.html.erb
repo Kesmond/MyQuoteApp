@@ -1,0 +1,12 @@
+<h1>New quote</h1>
+
+<%= render "form", quote: @quote %>
+
+<br>
+
+<div>
+  <!-- Creates a link to current_users quote when pressed -->
+  <%= link_to "Back to My Quote", your_quotes_path %> |
+  <!-- Creates a link to create a new quote when pressed -->
+  <%= link_to "Create New Quote", new_quote_path %>
+</div>

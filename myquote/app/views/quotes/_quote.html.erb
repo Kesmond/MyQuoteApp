@@ -1,0 +1,37 @@
+<!-- Quote Details -->
+
+<div id="<%= dom_id quote %>">
+  <!-- Quote Text -->
+  <h2>
+    "<%= quote.text %>"
+  </h2>
+
+  <!-- Quote Category and Year Published -->
+  <p>
+    <strong>Categories:</strong>
+    <%= quote.categories.map(&:category_name).join(", ") %><br />
+    <strong>Year published:</strong>
+    <%= quote.year_publication %>
+  </p>
+
+  <!-- Quote Author Details -->
+  <p>
+    <strong>Quote Author:</strong><br />
+    <% if quote.author.death_year? %>
+      <span class="author-indent" style="margin-left: 20px;"><%= "#{quote.author.fname} #{quote.author.lname} (#{quote.author.birth_year}-#{quote.author.death_year}) "%></span>
+    <% else %>
+      <span class="author-indent" style="margin-left: 20px;"><%= "#{quote.author.fname} #{quote.author.lname} (#{quote.author.birth_year}-present) "%></span>
+    <% end %>
+    <br/>
+    <span class="author-indent" style="margin-left: 20px;"><%= quote.author.biography %></span>
+  </p>
+
+  <!-- Quote user publisher and comment (if there is a comment) -->
+  <p>
+    <strong>Published by:</strong><br />
+    <span class="author-indent" style="margin-left: 20px;"><%= quote.user.fname %></span><br />
+    <% if quote.comment.present? %>
+      <span class="author-indent" style="margin-left: 20px;"><%= "Comment: #{quote.comment}" %></span>
+    <% end %>
+  </p>
+</div>

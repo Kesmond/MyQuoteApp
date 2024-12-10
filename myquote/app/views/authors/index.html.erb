@@ -1,0 +1,14 @@
+<!-- Any notice will be displayed on top -->
+<p style="color: green"><%= notice %></p>
+
+<h1>Authors</h1>
+
+<!-- Show every authors -->
+<div id="authors">
+  <% @author.each do |author| %>
+    <%= render author %>
+    <p>
+      <%= link_to "Show this author", author %>
+    </p>
+  <% end %>
+</div>
